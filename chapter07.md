@@ -143,6 +143,27 @@ Child 클래스의 생성자는 Parent 클래스의 생성자를 호출합니다
 
 혹시 빠트리더라도 `import java.lang.*;`은 언제나 실행됩니다.
 
-algospot online-judge에서는 package선언을 하지 않도록 요구합니다. 이렇게 하면 이름없는 패키지에 클래스가 선언되겠지요.		
-			
-			
+algospot online-judge에서는 package선언을 하지 않도록 요구합니다. 이렇게 하면 이름없는 패키지에 클래스가 선언되겠지요.
+
+	import java.util.Date;
+	import java.text.SimpleDateFormat;
+	public class Chapter07TestImport {
+	    public static void main(String[] args) {
+	        Date today = new Date();
+	
+	        SimpleDateFormat date = new SimpleDateFormat("yyyy/MM/dd");
+	        SimpleDateFormat time = new SimpleDateFormat("hh:mm:ss");
+	
+	        System.out.println("오늘의 날짜는: " + date.format(today));
+	        System.out.println("현재 시간은: " + time.format(today));
+	    }
+	}
+
+
+SimpleDateFormat 클래스에 대해 조금 더 알아봅시다. 사용법이 생소해서 찾아보니 이렇습니다. 
+
+SimpleDateFormat 인스턴스 formatter의 메서드로 `format()`이 있고 Date 객체를 매개변수로 받습니다.
+
+	public StringBuffer format(Date date, StringBuffer toAppendTo, FieldPosition pos)
+
+`java.util.Date`대신 `java.util.Calendar`를 사용할 수 있습니다. 이 경우 Calendar는 추상클래스이므로 생성자를 사용할 수 없고 getInstance() 메서드를 사용해 객체를 만듭니다. 
