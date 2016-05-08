@@ -31,16 +31,18 @@ Child 클래스는 Parent 클래스의 멤버변수를 모두 가지고 메서�
 오버라이딩(overriding)은 Parent 클래스의 method를 Child 클래스에서 수정하는 것을 말합니다. 필요에 맞게 재정의하는 것입니다.
 
 오버라이딩에는 몇가지 조건이 필요합니다.
+
 1. 메서드의 이름이 같아야 하고
 2. 매개변수가 같아야 하고
 3. return 값이 같아야 합니다.(이게 과연 필요할까요? 타입 conversion이 안 일어난다는 보장을 어떻게 하지요?)
 
 
 추가로 몇가지 조건이 더 필요합니다.
+
 4. Child 클래스의 접근 제어자가 더 엄격할 수 없습니다. Parent가 protected 메서드를 사용하는데 Child 클래스가 private일 수 없습니다. protected와 public만 허용됩니다.
 5. Child 클래스는 예외를 다루는데 Parent 클래스보다 더 관용적이어야 합니다.
 
-### 오버라이딩과 오보로딩의 차이 ###
+### 오버라이딩과 오버로딩의 차이 ###
 오버로딩은 Parent에서 없는 메서드을 Child에서 추가하는 것이고 오버라이딩은 Parent에 있는 메서드를 Child에서 수정하는 것입니다. 
 
 ### super 키워드 ###
@@ -72,8 +74,8 @@ this()가 클래스 내부에서 생성자를 지칭하는 이름이듯 super()�
 
 Child 클래스의 생성자는 Parent 클래스의 생성자를 호출합니다. (생략하면 컴파일러가 추가합니다.) 
 
-기본적으로 Parent 클래스의 멤버변수는 Parent 클래스의 생성자가 생성하도록 합니다.
-
+**기본적으로 Parent 클래스의 멤버변수는 Parent 클래스의 생성자가 생성하도록 합니다.
+**
 
 	public class TestSuperConstructor {
 	    public static void main(String[] args) {
@@ -110,7 +112,37 @@ Child 클래스의 생성자는 Parent 클래스의 생성자를 호출합니다
 	    }
 	}
 		
+## 패키지와 import ##
 
-		
+1. 패키지는 클래스의 모음입니다.
+2. 패키지는 디렉토리 구조를 반영합니다. 예를 들어 `java.lang.String` 클래스는 `java/lang/String.java` 파일에 정의되어 있습니다.
+
+파이썬과 비슷한 것 같네요.
+
+패키지의 선언은 
+
+`package package_name;`으로 합니다. 이 구문을 실행한 이후의 클래스는 `package_name`에 묶이게 됩니다.
+
+** 모든 클래스는 반드시 하나의 패키지에 포함되어야 합니다. ** 패키지 선언없이 클래스 정의가 가능했던 이유는 `이름없는 패키지`에 선언되기 때문입니다.
+
+> 패키지를 컴파일 하려면 뭐 약간의 작업이 필요합니다. 일단 넘어가겠습니다. 
+
+다른 패키지를 사용하려면 `import`를 사용합니다.
+
+	import java.util.Calendar;
+	import java.util.Date;
+	import java.util.Arraylist;
+
+이렇게도 가능하고 아래처럼 `*`을 사용할 수도 있습니다.
+
+	import java.util.*
+
+하지만 아래처럼 사용할 수는 없습니다. 아래처럼 `import`를 사용해도 상위의 클래스를 `import`하지는 않습니다.
+
+	import java.*; 
+
+혹시 빠트리더라도 `import java.lang.*;`은 언제나 실행됩니다.
+
+algospot online-judge에서는 package선언을 하지 않도록 요구합니다. 이렇게 하면 이름없는 패키지에 클래스가 선언되겠지요.		
 			
 			
