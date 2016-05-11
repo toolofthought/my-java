@@ -74,8 +74,7 @@ this()가 클래스 내부에서 생성자를 지칭하는 이름이듯 super()�
 
 Child 클래스의 생성자는 Parent 클래스의 생성자를 호출합니다. (생략하면 컴파일러가 추가합니다.) 
 
-**기본적으로 Parent 클래스의 멤버변수는 Parent 클래스의 생성자가 생성하도록 합니다.
-**
+*기본적으로 Parent 클래스의 멤버변수는 Parent 클래스의 생성자가 생성하도록 합니다.*
 
 	public class TestSuperConstructor {
 	    public static void main(String[] args) {
@@ -123,7 +122,7 @@ Child 클래스의 생성자는 Parent 클래스의 생성자를 호출합니다
 
 `package package_name;`으로 합니다. 이 구문을 실행한 이후의 클래스는 `package_name`에 묶이게 됩니다.
 
-** 모든 클래스는 반드시 하나의 패키지에 포함되어야 합니다. ** 패키지 선언없이 클래스 정의가 가능했던 이유는 `이름없는 패키지`에 선언되기 때문입니다.
+*모든 클래스는 반드시 하나의 패키지에 포함되어야 합니다.* 패키지 선언없이 클래스 정의가 가능했던 이유는 `이름없는 패키지`에 선언되기 때문입니다.
 
 > 패키지를 컴파일 하려면 뭐 약간의 작업이 필요합니다. 일단 넘어가겠습니다. 
 
@@ -167,3 +166,35 @@ SimpleDateFormat 인스턴스 formatter의 메서드로 `format()`이 있고 Dat
 	public StringBuffer format(Date date, StringBuffer toAppendTo, FieldPosition pos)
 
 `java.util.Date`대신 `java.util.Calendar`를 사용할 수 있습니다. 이 경우 Calendar는 추상클래스이므로 생성자를 사용할 수 없고 getInstance() 메서드를 사용해 객체를 만듭니다. 
+
+## 제어자(modifier) ##
+## static ##
+멤버변수에서: 클래스 멤버변수로 하나의 클래스가 공통으로 사용합니다.
+메서드에서: 클래스 메서드로 인스턴스를 만들지 않고 사용하는 메서드가 됩니다.
+## final ###
+클래스에서: 변경하거나 확장할 수 없는 클래스입니다. final이 붙은 클래스는 다른 클래스의 ancestor가 될 수 없습니다.
+메서드에서: 변경할 수 없는 메서드로 오버라이딩 될 수 없습니다.
+멤버변수/지역변수에서: 값을 변경할 수 없습니다.
+
+final 멤버변수를 초기화 할 때는 constructor를 사용합니다.
+## 접근제어자 ##
+public(전부) < default(descendant + 같은 패키지) < protected(같은 패키지) < private(같은 클래스)
+### abstract ###
+클래스에서: 클래스 내부에 추상메서드가 선언되어 있습니다.
+메서드에서: 선언부만 작성되어 있고 구현은 되지 않았습니다.
+
+### public ###
+접근에 제한이 없습니다.
+
+### protected ###
+descendant에서만 접근 가능하고 추가로 같은 패키지의 클래스에서 접근가능합니다.
+
+### default ###
+같은 패키지 내부에서만 접근가능합니다.
+
+### protected ###
+같은 클래스 내부에서면 접근가능합니다.
+
+### private 생성자 ###
+생성자를 private으로 할 경우 대신 인스턴스를 생성해서 반환하는 getInstance() 메서드를 만들어야 합니다. 인스턴스가 없이도 접근이 가능해야 하기 때문에 getInstance() 는 static 메서드로 지정해야 합니다. 
+### 기타 제어자 ###
