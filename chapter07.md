@@ -221,4 +221,113 @@ descendant에서만 접근 가능하고 추가로 같은 패키지의 클래스�
 
 혹시 descendant에서 overriding한 멤버가 있다면 descendant 인스턴스는 descendant에서 멤버를 가져오고, ancestor 인스턴스는 ancestor에서 멤버를 가져옵니다.
 
+### 가상함수 ###
+이전에 ancestor 참조변수를 이용해서 descendant 클래스의 인스턴스에 접근할 수 있다고 했습니다. 뭐 일견 그럴듯 합니다.
+
+그런데 descendant 클래스에서 ancestor의 한 메서드가 오버라이딩 되었다면 어떨까요? 어떤 메서드가 실행될까요?
+
+
+	class Human {
+		int age = 36;
+		
+		void print() {
+			System.out.println("age: " + age);
+		}
+	}
+	
+	class Student extends Human {
+		int age = 10;	
+		int year = 10;
+	
+		void print() {
+			System.out.println("school year: " + year);
+		}
+	}
+	
+	public class Chapter07TestInheretance {
+		public static void main(String[] args) {
+			Human s = new Student();
+			s.print();
+			System.out.println("age: " + s.age);
+		}
+	}
+
+![](http://i.imgur.com/rqNLTxJ.png)
+
+멤버변수는 원래 Human에서, print() 메서드는 오버라이딩 된 메서드를 찾아왔습니다.
+
+왜냐구요? 자바는 가상함수가 기본입니다. 동적으로 바인딩합니다. 적어도 메서드에 대해서는 그렇습니다. C++는 반대로 정적바인딩이 기본입니다. 메서드에 `virtual`이 붙어 있지 않으면 정적으로 타입을 결정합니다.
+
+### 여러 종류의 객체를 배열에 담기 ###
+배열에 여러 종류의 객체를 담는다고 합시다. 어떤 타입을 사용하는 것이 좋을까요?
+
+공통의 ascendant를 만들면 간편하게 타입을 정할 수 있습니다.
+
+	import java.util.ArrayList;
+	
+	class Product {
+	    int price = 100;
+	}
+	
+	class Mine extends Product {
+	    int price = 20;
+	}
+	
+	class Yours extends Product {
+	    int price = 30;
+	}
+	
+	class Chapter07TestObjectARrayList {
+	    public static void main(String[] args){
+	        ArrayList<Product> items = new ArrayList<Product>();
+	        items.add(new Mine());
+	        items.add(new Yours());
+	
+	        System.out.println(items.get(0).price);
+	        System.out.println(items.get(1).price);
+	    }
+	}
+
+![](http://i.imgur.com/PuRXFOp.png)
+의도한 대로 하려면 멤버변수 대신 메서드 오버라이딩을 해야합니다.
+
+
+	import java.util.ArrayList;
+	
+	class Product {
+	    int price = 100;
+	    int getPrice() {
+	        return this.price;
+	    }
+	}
+	
+	class Mine extends Product {
+	    int price = 20;
+	    int getPrice() {
+	        return this.price;
+	    }
+	}
+	
+	class Yours extends Product {
+	    int price = 30;
+	    int getPrice() {
+	        return this.price;
+	    }
+	}
+	
+	class Chapter07TestObjectARrayList {
+	    public static void main(String[] args){
+	        ArrayList<Product> items = new ArrayList<Product>();
+	        items.add(new Mine());
+	        items.add(new Yours());
+	
+	        System.out.println(items.get(0).getPrice());
+	        System.out.println(items.get(1).getPrice());
+	    }
+	}
+
+![](http://i.imgur.com/QhyjXWt.png)
+
+메서드는 가상함수! 멤버변수는 정적바인딩!
+
 
